@@ -1,12 +1,16 @@
 package com.oliveiralia.dscommerce.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.oliveiralia.dscommerce.dtos.ProductDto;
 import com.oliveiralia.dscommerce.entities.Product;
 import com.oliveiralia.dscommerce.repositories.ProductRepository;
 
-import jakarta.transaction.Transactional;
+
 
 @Service
 public class ProductService {
@@ -14,10 +18,12 @@ public class ProductService {
 	@Autowired
 	private ProductRepository repository;
 	
-	@Transactional
-	public Product findById(Long id) {
-		return repository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Produto não encontrado: " + id));
+	@Transactional(readOnly = true)
+	public ProductDto findById(Long id) {
+		Optional<Product> result = repository.findById(id);
+		Product product = result.get();
+		ProductDto dto = new ProductDto(product);
+		return dto;
 	}
 
 }
