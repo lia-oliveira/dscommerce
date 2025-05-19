@@ -6,10 +6,13 @@ import com.oliveiralia.dscommerce.entities.Product;
 public class ProductMapper {
 	
 	public static Product fromDto(ProductDto dto) {
+		if(dto == null) return null;
 		return new Product(null, dto.getName(), dto.getDescription(), dto.getPrice(), dto.getImgURL());
+		
 	}
 	
 	public static ProductDto fromEntity(Product product) {
+		if(product == null) return null;
 		return new ProductDto(product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getImgUrl());
 	}
 }
