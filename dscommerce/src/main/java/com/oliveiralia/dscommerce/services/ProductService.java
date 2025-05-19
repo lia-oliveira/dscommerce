@@ -39,4 +39,12 @@ public class ProductService {
 		entity = repository.save(entity);
 		return ProductMapper.fromEntity(entity);		
 	}
+	
+	@Transactional
+	public ProductDto update(Long id, ProductDto dto) {
+		Product entity = repository.getReferenceById(id);
+		ProductMapper.copyDtoToEntity(dto, entity);
+		entity = repository.save(entity);
+		return ProductMapper.fromEntity(entity);
+	}
 }

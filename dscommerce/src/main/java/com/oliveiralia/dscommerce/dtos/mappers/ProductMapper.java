@@ -15,4 +15,11 @@ public class ProductMapper {
 		if(product == null) return null;
 		return new ProductDto(product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getImgUrl());
 	}
+	
+	public static void copyDtoToEntity(ProductDto dto, Product entity) {
+		entity.setName(dto.getName());
+		entity.setDescription(dto.getDescription());
+		entity.setPrice(dto.getPrice());
+		entity.setImgUrl(dto.getImgURL());
+	}
 }
