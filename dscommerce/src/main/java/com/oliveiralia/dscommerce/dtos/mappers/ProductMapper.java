@@ -1,0 +1,15 @@
+package com.oliveiralia.dscommerce.dtos.mappers;
+
+import com.oliveiralia.dscommerce.dtos.ProductDto;
+import com.oliveiralia.dscommerce.entities.Product;
+
+public class ProductMapper {
+	
+	public static Product fromDto(ProductDto dto) {
+		return new Product(null, dto.getName(), dto.getDescription(), dto.getPrice(), dto.getImgURL());
+	}
+	
+	public static ProductDto fromEntity(Product product) {
+		return new ProductDto(product.getId(), product.getName(), product.getDescription(), product.getPrice(), product.getImgUrl());
+	}
+}

@@ -7,10 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.oliveiralia.dscommerce.dtos.ProductDto;
+import com.oliveiralia.dscommerce.dtos.mappers.ProductMapper;
 import com.oliveiralia.dscommerce.entities.Product;
 import com.oliveiralia.dscommerce.repositories.ProductRepository;
-
-
 
 @Service
 public class ProductService {
@@ -22,7 +21,7 @@ public class ProductService {
 	public ProductDto findById(Long id) {
 		Optional<Product> result = repository.findById(id);
 		Product product = result.get();
-		ProductDto dto = new ProductDto(product);
+		ProductDto dto = ProductMapper.fromEntity(product);
 		return dto;
 	}
 
