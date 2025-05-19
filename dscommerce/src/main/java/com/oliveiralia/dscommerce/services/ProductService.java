@@ -47,4 +47,9 @@ public class ProductService {
 		entity = repository.save(entity);
 		return ProductMapper.fromEntity(entity);
 	}
+	
+	@Transactional
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
 }
