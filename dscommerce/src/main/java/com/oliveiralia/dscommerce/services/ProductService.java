@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.oliveiralia.dscommerce.dtos.ProductDto;
 import com.oliveiralia.dscommerce.dtos.mappers.ProductMapper;
@@ -32,5 +33,11 @@ public class ProductService {
 		ProductDto dto = ProductMapper.fromEntity(product);
 		return dto;
 	}
-
+	
+	@Transactional
+	public ProductDto insert(ProductDto dto) {
+		Product entity = ProductMapper.fromDto(dto);		
+		entity = repository.save(entity);
+		return ProductMapper.fromEntity(entity);		
+	}
 }
