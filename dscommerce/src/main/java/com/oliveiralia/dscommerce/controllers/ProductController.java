@@ -21,6 +21,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.oliveiralia.dscommerce.dtos.ProductDto;
 import com.oliveiralia.dscommerce.services.ProductService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/products")
 public class ProductController {
@@ -41,14 +43,14 @@ public class ProductController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ProductDto> insert(@RequestBody ProductDto dto) {
+	public ResponseEntity<ProductDto> insert(@Valid @RequestBody ProductDto dto) {
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ProductDto> update(@PathVariable Long id, @RequestBody ProductDto dto) {
+	public ResponseEntity<ProductDto> update(@PathVariable Long id, @Valid @RequestBody ProductDto dto) {
 		dto = service.update(id, dto);
 		return ResponseEntity.ok(dto);
 	}
@@ -58,4 +60,5 @@ public class ProductController {
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+	//TODO Rever a Validation e fazer a validation personalizada.
 }
