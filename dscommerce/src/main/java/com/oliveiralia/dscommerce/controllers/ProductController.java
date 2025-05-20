@@ -1,7 +1,6 @@
 package com.oliveiralia.dscommerce.controllers;
 
 import java.net.URI;
-import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,9 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.oliveiralia.dscommerce.dtos.ProductDto;
-import com.oliveiralia.dscommerce.dtos.exceptions.CustomError;
 import com.oliveiralia.dscommerce.services.ProductService;
-import com.oliveiralia.dscommerce.services.exceptions.ResourceNotFoundException;
 
 @RestController
 @RequestMapping(value = "/products")
@@ -38,16 +35,9 @@ public class ProductController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> findById(@PathVariable Long id) {
-		try {
-			ProductDto dto = service.findById(id);
-			return ResponseEntity.ok(dto);		
-		}
-		catch (ResourceNotFoundException e) {
-			CustomError err = new CustomError(Instant.now(), 404, e.getMessage(), "Path");
-			return ResponseEntity.status(404).body(err);
-		}
-		
+	public ResponseEntity<ProductDto> findById(@PathVariable Long id) {
+		ProductDto dto = service.findById(id);
+		return ResponseEntity.ok(dto);		
 	}
 	
 	@PostMapping
